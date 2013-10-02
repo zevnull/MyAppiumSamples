@@ -4,7 +4,7 @@
     <test verbose="1" name="AppiumTests"
           annotations="JDK">
         <classes>
-            <class name="zevnull.MyAppiumSamples.tests.SwipeTest" />
+            <class name="zevnull.MyAppiumSamples.tests.NodeListTest" />
         </classes>
     </test>
 

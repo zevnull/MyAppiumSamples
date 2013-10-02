@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -51,6 +52,13 @@ public class SwipeTest {
 
     @Test
     public void swipeTest() {
+
+        HashMap<String, Integer> keycode = new HashMap<String, Integer>();
+        keycode.put("keycode", 82);
+        ((JavascriptExecutor)driver).executeScript("mobile: keyevent", keycode);
+
+        System.out.println("@@@@@@@@@@@@@@@@@@");
+
 
         logger.info("3: " + driver.findElements(By.className("android.widget.TextView")).get(3));
         System.out.println("Before swipe: " + driver.findElements(By.className("android.widget.TextView")).get(3).getText());
