@@ -24,21 +24,20 @@ public class SwipeTest {
     private WebDriver driver;
 
 
-
     @BeforeMethod
     public void setUp() throws Exception {
 
         logger.info("setUp - started.");
 
-        File app = new File( "aut/ListView.apk" );
+        File app = new File("aut/ListView.apk");
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        capabilities.setCapability( "device", "Android" );
+        capabilities.setCapability("device", "Android");
         capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
         capabilities.setCapability(CapabilityType.PLATFORM, "Windows");
         capabilities.setCapability(CapabilityType.VERSION, "4.2");
-        capabilities.setCapability( "app-package", "com.example.listview" );
-        capabilities.setCapability( "app-activity", ".MainActivity" );
-        driver = new RemoteWebDriver( new URL( "http://127.0.0.1:4723/wd/hub" ), capabilities );
+        capabilities.setCapability("app-package", "com.example.listview");
+        capabilities.setCapability("app-activity", ".MainActivity");
+        driver = new RemoteWebDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 
         logger.info("setUp - finished.");
 
@@ -53,6 +52,9 @@ public class SwipeTest {
     @Test
     public void swipeTest() {
 
+        logger.info("3: " + driver.findElements(By.className("android.widget.TextView")).get(3));
+        System.out.println("Before swipe: " + driver.findElements(By.className("android.widget.TextView")).get(3).getText());
+
 
         WebElement end = driver.findElements(By.className("android.widget.TextView")).get(10);
         logger.info("10 : " + end.getLocation().getX() + "," + end.getLocation().getY());
@@ -60,14 +62,19 @@ public class SwipeTest {
         WebElement start = driver.findElements(By.className("android.widget.TextView")).get(9);
         logger.info("9 : " + start.getLocation().getX() + "," + start.getLocation().getY());
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        HashMap<String, Integer> swipeObject = new HashMap<String, Integer>();
-        swipeObject.put("startX", 10);
-        swipeObject.put("startY", end.getLocation().getY());
-        swipeObject.put("endX", 10);
-        swipeObject.put("endY", start.getLocation().getY());
-        swipeObject.put("duration", 5);
-        js.executeScript("mobile: swipe", swipeObject);
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            HashMap<String, Integer> swipeObject = new HashMap<String, Integer>();
+            swipeObject.put("startX", 10);
+            swipeObject.put("startY", end.getLocation().getY());
+            swipeObject.put("endX", 10);
+            swipeObject.put("endY", start.getLocation().getY());
+            swipeObject.put("duration", 1);
+            js.executeScript("mobile: swipe", swipeObject);
+        } catch (Exception e) {
+
+        }
+        System.out.println("After swipe: " + driver.findElements(By.className("android.widget.TextView")).get(3).getText());
 
     }
 }
