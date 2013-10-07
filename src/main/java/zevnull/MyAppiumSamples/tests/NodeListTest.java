@@ -10,19 +10,26 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
+import org.testng.TestNG;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import org.testng.annotations.Listeners;
+
 import zevnull.MyAppiumSamples.tests.pom.nodelist.MainPage;
+import zevnull.report.EmailableReporter;
 
 import java.io.File;
 import java.net.URL;
 import java.util.Random;
 
+@Listeners(EmailableReporter.class)
 public class NodeListTest {
 
     private WebDriver driver;
 
+    private Logger logger = Logger.getLogger(NodeListTest.class);
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -46,11 +53,12 @@ public class NodeListTest {
 
     @Test
     public void addNewNoteTest() {
-
+        logger.info("addNewNoteTest - stared.");
         String noteText = "Note" + new Random().nextInt(1000);
         MainPage mainPage = new MainPage(driver);
 
         Assert.assertTrue(mainPage.createNewNote(noteText).getNotestList().contains(noteText), "New note not present");
+        logger.info("addNewNoteTest - finished.");
 
     }
 }
