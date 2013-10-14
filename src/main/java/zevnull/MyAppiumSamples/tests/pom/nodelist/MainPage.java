@@ -5,20 +5,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainPage {
 
+    @FindBy(className = "android.widget.TextView")
+    public WebElement newNotes;
 
-    final WebElement newNotes;
+//    final WebElement newNotes;
 
     private final WebDriver driver;
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
-        newNotes = driver.findElements(By.className("android.widget.TextView")).get(1);
+        //newNotes = driver.findElements(By.className("android.widget.TextView")).get(1);
+        PageFactory.initElements(driver, this);
     }
 
     public MainPage createNewNote(String text) {
